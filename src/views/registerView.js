@@ -1,4 +1,4 @@
-import { html } from "../../node_modules/lit-html/lit-html.js";
+import { html } from "../lib.js";
 import { registerRequest } from "../data/users.js";
 import { submitHandler } from "../until.js";
 
@@ -7,6 +7,12 @@ const registerTemplate = (onSubmit) => html`<section id="register">
           <div class="form">
             <h2>Register</h2>
             <form @submit=${onSubmit} class="register-form">
+              <input
+                type="text"
+                name="username"
+                id="register-email"
+                placeholder="username"
+              />
               <input
                 type="text"
                 name="email"
@@ -21,7 +27,7 @@ const registerTemplate = (onSubmit) => html`<section id="register">
               />
               <input
                 type="password"
-                name="re-password"
+                name="rePass"
                 id="repeat-password"
                 placeholder="repeat password"
               />
@@ -34,18 +40,17 @@ const registerTemplate = (onSubmit) => html`<section id="register">
 export function registerView(ctx) {
     ctx.renderSection(registerTemplate(submitHandler(onSubmit)));
 
-    async function onSubmit(dataIn) {
-        const rePass = dataIn['re-password'];
+    async function onSubmit({ username, email, password, rePass}) {
 
-        if (dataIn.email == '' || dataIn.password == '') {
+        if (username == '' || email == '' || password == '') {
             return alert('all field is required');
         }
 
-        if (dataIn.password !== rePass) {
+        if (password !== rePass) {
             return alert('password don\'t match');
         }
 
-        const data = await registerRequest(dataIn.email, dataIn.password)
+        const data = await registerRequest(email, username, password)
         ctx.page.redirect('/');
     }
 }

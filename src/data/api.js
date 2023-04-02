@@ -1,12 +1,18 @@
 import { getUserData } from "../until.js";
 
 // const host = 'http://192.168.88.50:3030';
-// const host = 'http://192.168.88.50:3030';
+const host = 'https://parseapi.back4app.com';
+
+const appId = 'ZI7dfjS3VNbOlLaawoFwH8LlvdTCJGDgyzCwb3nM';
+const apiKey = 'iquKmQ8uvkumY5WcL1IO6o33ffzjhKSLksVR0n6l';
 
 async function request(method, url, data) {
     const options = {
         method,
-        headers: {}
+        headers: {
+            'X-Parse-Application-Id': appId,
+            'X-Parse-JavaScript-Key': apiKey,
+        }
     }
 
     if(data !== null) {
@@ -16,7 +22,7 @@ async function request(method, url, data) {
 
     const hasUser = getUserData()
     if(hasUser) {
-        options.headers['X-Authorization'] = hasUser.accessToken;
+        options.headers['X-Parse-Session-Token'] = hasUser.sessionToken;
     }
 
     try {
@@ -29,7 +35,7 @@ async function request(method, url, data) {
         const data = await response.json();
 
         if(response.ok == false) {
-            throw new Error(data.message);
+            throw new Error(data.error);
         }
 
         return data;

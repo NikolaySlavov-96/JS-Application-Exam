@@ -1,4 +1,4 @@
-import page from './lib.js';
+import { page } from './lib.js';
 import { userSession } from './middleware/addSession.js';
 import { createRender } from './middleware/render.js';
 import { navShows } from './middleware/userNav.js';

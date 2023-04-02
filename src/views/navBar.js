@@ -13,7 +13,6 @@ export const navTemplate = (hasUser) => html`
         html`<div class="guest">
         <a href="/login">Login</a>
         <a href="/register">Register</a>
-
-    </div>`}`;
+</div>`}`;
 
 

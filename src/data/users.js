@@ -2,31 +2,35 @@ import { removeUserData, setUserData } from '../until.js';
 import * as api from './api.js';
 
 const endpoint = {
-    'login': '/users/login',
-    'register': '/users/register',
+    'login': '/login',
+    'register': '/users',
     'logout': '/users/logout'
 }
 
 export async function loginRequest(email, password) {
-    const data = await api.postRequest(endpoint.login, { email, password });
+    const { username, sessionToken, objectId} = await api.postRequest(endpoint.login, { email, password });
     const dataUser = {
-        email: data.email,
-        id: data._id,
-        accessToken: data.accessToken
+        objectId,
+        sessionToken,
+        username,
+        email,
     }
     setUserData(dataUser)
-    return data
+    return dataUser
 }
 
-export async function registerRequest(email, password) {
-    const data = await api.postRequest(endpoint.register, { email, password });
+export async function registerRequest(email, username, password) {
+    console.log(email, username, password)
+    const { sessionToken, objectId } = await api.postRequest(endpoint.register, { email, username, password });
     const dataUser = {
-        email: data.email,
-        id: data._id,
-        accessToken: data.accessToken
+        objectId,
+        sessionToken,
+        username,
+        email,
     }
+    console.log(dataUser)
     setUserData(dataUser)
-    return data
+    return dataUser
 }
 
 export async function logoutRequest() {
