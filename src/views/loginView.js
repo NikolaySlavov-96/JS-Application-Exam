@@ -1,4 +1,4 @@
-import { html } from "../../node_modules/lit-html/lit-html.js";
+import { html } from "../lib.js";
 import { loginRequest } from "../data/users.js";
 import { submitHandler } from "../until.js";
 

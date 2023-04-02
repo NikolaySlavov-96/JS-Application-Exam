@@ -25,7 +25,6 @@ export async function registerRequest(email, password) {
         id: data._id,
         accessToken: data.accessToken
     }
-    console.log(dataUser)
     setUserData(dataUser)
     return data
 }

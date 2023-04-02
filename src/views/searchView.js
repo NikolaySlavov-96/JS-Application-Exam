@@ -1,5 +1,4 @@
-import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
-import { repeat } from "../../node_modules/lit-html/directives/repeat.js";
+import { html, nothing } from "../lib.js";
 import { searchEngine } from "../data/search.js";
 import { submitHandler } from "../until.js";
 

@@ -1,7 +1,7 @@
 import { getUserData } from "../until.js";
 
-// const host = 'http://localhost:3030';
-const host = 'http://192.168.88.50:3030';
+// const host = 'http://192.168.88.50:3030';
+// const host = 'http://192.168.88.50:3030';
 
 async function request(method, url, data) {
     const options = {

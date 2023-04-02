@@ -1,5 +1,5 @@
-import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
-import { dellShoe, getSpecificShoe } from "../data/mate.js";
+import { html, nothing } from '../lib.js'
+import { removeFruit, getSpecificFruit } from "../data/fruit.js";
 
 const btnTemplate = (isOwner, id, onDelete) => html`${isOwner ? html`
 <div id="action-buttons">
@@ -25,9 +25,7 @@ const detailTemplate = (isOwner, content, onDelete) => html`
 
 export async function detailView(ctx) {
     const shoeId = ctx.params.id
-    const dataSpecific = await getSpecificShoe(shoeId);
-
-    console.log(dataSpecific.description)
+    const dataSpecific = await getSpecificFruit(shoeId);
 
     const ownerId = dataSpecific._ownerId;
     const users = ctx?.user
@@ -45,7 +43,7 @@ export async function detailView(ctx) {
 
     async function onDelete(ev) {
         ev.preventDefault()
-        const dataAwailt = await dellShoe(shoeId);
+        const dataAwailt = await removeFruit(shoeId);
         ctx.page.redirect('/catalog');
     }
 }
