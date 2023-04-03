@@ -6,7 +6,7 @@ const createTemplate = (onSubmit) => html` <section id="create">
   <div class="form">
     <h2>Add Fruit</h2>
     <form @submit=${onSubmit} class="create-form">
-      <input type="text" name="name" id="name" placeholder="Fruit Name" />
+      <input type="text" name="nameFruit" id="name" placeholder="Fruit Name" />
       <input
         type="text"
         name="imageUrl"
@@ -22,7 +22,7 @@ const createTemplate = (onSubmit) => html` <section id="create">
       ></textarea>
       <textarea
         id="fruit-nutrition"
-        name="nutrition"
+        name="nutritionDescription"
         placeholder="Nutrition"
         rows="10"
         cols="50"
@@ -35,17 +35,17 @@ const createTemplate = (onSubmit) => html` <section id="create">
 export function createView(ctx) {
   ctx.renderSection(createTemplate(submitHandler(onSubmit)));
 
-  async function onSubmit({ name, imageUrl, description, nutrition }) {
-    if (name == "" || imageUrl == "" || description == "" || nutrition == "") {
+  async function onSubmit({ nameFruit, imageUrl, description, nutritionDescription }) {
+    if (nameFruit == "" || imageUrl == "" || description == "" || nutritionDescription == "") {
       return alert("all field is required");
     }
-
+    const userId = ctx.user.objectId
     const dataResultShoe = await addNewFruit({
-      name,
+      nameFruit,
       imageUrl,
       description,
-      nutrition,
-    });
+      nutritionDescription,
+    }, userId);
     ctx.page.redirect("/catalog");
   }
 }

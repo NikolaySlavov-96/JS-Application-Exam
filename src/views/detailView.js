@@ -11,14 +11,14 @@ const detailTemplate = (isOwner, content, onDelete) => html`
 <section id="details">
     <div id="details-wrapper">
         <img id="details-img" src="${content.imageUrl}" alt="example1" />
-        <p id="details-title">${content.name}</p>
+        <p id="details-title">${content.nameFruit}</p>
         <div id="info-wrapper">
             <div id="details-description">
                 <p>${content.description}</p>
                 <p id="nutrition">Nutrition</p>
-                <p id="details-nutrition">${content.nutrition}</p>
+                <p id="details-nutrition">${content.nutritionDescription}</p>
             </div>
-            ${btnTemplate(isOwner, content._id, onDelete)}
+            ${btnTemplate(isOwner, content.objectId, onDelete)}
         </div>
     </div>
 </section>`
@@ -26,14 +26,14 @@ const detailTemplate = (isOwner, content, onDelete) => html`
 export async function detailView(ctx) {
     const shoeId = ctx.params.id
     const dataSpecific = await getSpecificFruit(shoeId);
-
-    const ownerId = dataSpecific._ownerId;
+    
+    const ownerId = dataSpecific.owner.objectId;
     const users = ctx?.user
     let userId = null;
     if (users) {
-        userId = users.id;
+        userId = users.objectId;
     }
-
+    
     let hasOwner = false;
     if (ownerId == userId) {
         hasOwner = true;

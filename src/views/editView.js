@@ -8,9 +8,9 @@ const editTemplate = (onSubmit, content) => html` <section id="edit">
     <form @submit=${onSubmit} class="edit-form">
       <input
         type="text"
-        name="name"
+        name="nameFruit"
         id="name"
-        .value=${content.name}
+        .value=${content.nameFruit}
         placeholder="Fruit Name"
       />
       <input
@@ -30,11 +30,11 @@ const editTemplate = (onSubmit, content) => html` <section id="edit">
       ></textarea>
       <textarea
         id="fruit-nutrition"
-        name="nutrition"
+        name="nutritionDescription"
         placeholder="Nutrition"
         rows="10"
         cols="50"
-        .value=${content.nutrition}
+        .value=${content.nutritionDescription}
       ></textarea>
       <button type="submit">post</button>
     </form>
@@ -47,16 +47,16 @@ export async function editView(ctx) {
 
   ctx.renderSection(editTemplate(submitHandler(onSubmit), dataOpenShoe));
 
-  async function onSubmit({ name, imageUrl, description, nutrition }) {
-    if (name == "" || imageUrl == "" || description == "" || nutrition == "") {
+  async function onSubmit({ nameFruit, imageUrl, description, nutritionDescription }) {
+    if (nameFruit == "" || imageUrl == "" || description == "" || nutritionDescription == "") {
       return alert("all field is required");
     }
 
     const dataResultShoe = await editSpecificFruit(idShoe, {
-      name,
+      nameFruit,
       imageUrl,
       description,
-      nutrition,
+      nutritionDescription,
     });
     ctx.page.redirect("/catalog/" + idShoe);
   }

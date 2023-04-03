@@ -28,7 +28,6 @@ export async function registerRequest(email, username, password) {
         username,
         email,
     }
-    console.log(dataUser)
     setUserData(dataUser)
     return dataUser
 }
