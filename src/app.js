@@ -1,5 +1,6 @@
 import { page } from './lib.js';
 import { userSession } from './middleware/addSession.js';
+import { hasUser } from './middleware/guears.js';
 import { createRender } from './middleware/render.js';
 import { navShows } from './middleware/userNav.js';
 import { getUserData } from './until.js';
@@ -24,9 +25,9 @@ page(navShows(navTemplate));
 page('/', homeView);
 page('/catalog', dashboardView);
 page('/catalog/:id', detailView);
-page('/edit/:id', editView)
+page('/edit/:id', hasUser, editView);
 page('/search', searchView);
-page('/create', createView);
+page('/create', hasUser, createView);
 page('/logout', logoutFn);
 page('/login', loginView);
 page('/register', registerView);

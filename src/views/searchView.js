@@ -35,20 +35,22 @@ export function searchView(ctx) {
   async function onSubmit(data) {
     hasInput = true;
     let hasResult = false;
-    const resultSeach = await searchEngine(data.search);
+    const resultSeach = {results: []} //await searchEngine(data.search);
 
-    if (resultSeach.length !== 0) {
+    const resultFromSearch = resultSeach.results;
+
+    if (resultFromSearch.length !== 0) {
       hasResult = true;
     }
     const user = ctx.user;
     if (user) {
-      resultSeach.user = true;
+      resultFromSearch.user = true;
     } else {
-      resultSeach.user = false;
+      resultFromSearch.user = false;
     }
 
     ctx.renderSection(
-      searchTemplate(hasInput, submitHandler(onSubmit), hasResult, resultSeach)
+      searchTemplate(hasInput, submitHandler(onSubmit), hasResult, resultFromSearch)
     );
   }
 }
