@@ -20,7 +20,6 @@ export async function loginRequest(email, password) {
 }
 
 export async function registerRequest(email, username, password) {
-    console.log(email, username, password)
     const { sessionToken, objectId } = await api.postRequest(endpoint.register, { email, username, password });
     const dataUser = {
         objectId,
