@@ -1,4 +1,4 @@
-import { render } from "../lib.js";
+import { render } from "../../node_modules/lit-html/lit-html.js";
 
 
 export function createRender(nav, section) {

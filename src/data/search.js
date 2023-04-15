@@ -1,7 +1,7 @@
 import * as api from './api.js';
 
 const endPoints = {
-    'search': (query) => `/classes/Fruit?where=${encodeURIComponent(`{"$or":[{"nameFruit":${query}}]}`)}`
+    'search': (query) => `/data/fruits?where=name%20LIKE%20%22${query}%22`
 }
 
 export async function searchEngine(query) {

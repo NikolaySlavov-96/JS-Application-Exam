@@ -1,5 +1,5 @@
-import { html, nothing } from '../lib.js'
-import { removeFruit, getSpecificFruit } from "../data/fruit.js";
+import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
+import { dellShoe, getSpecificShoe } from "../data/mate.js";
 
 const btnTemplate = (isOwner, id, onDelete) => html`${isOwner ? html`
 <div id="action-buttons">
@@ -11,29 +11,31 @@ const detailTemplate = (isOwner, content, onDelete) => html`
 <section id="details">
     <div id="details-wrapper">
         <img id="details-img" src="${content.imageUrl}" alt="example1" />
-        <p id="details-title">${content.nameFruit}</p>
+        <p id="details-title">${content.name}</p>
         <div id="info-wrapper">
             <div id="details-description">
                 <p>${content.description}</p>
                 <p id="nutrition">Nutrition</p>
-                <p id="details-nutrition">${content.nutritionDescription}</p>
+                <p id="details-nutrition">${content.nutrition}</p>
             </div>
-            ${btnTemplate(isOwner, content.objectId, onDelete)}
+            ${btnTemplate(isOwner, content._id, onDelete)}
         </div>
     </div>
 </section>`
 
 export async function detailView(ctx) {
     const shoeId = ctx.params.id
-    const dataSpecific = await getSpecificFruit(shoeId);
-    
-    const ownerId = dataSpecific.owner.objectId;
+    const dataSpecific = await getSpecificShoe(shoeId);
+
+    console.log(dataSpecific.description)
+
+    const ownerId = dataSpecific._ownerId;
     const users = ctx?.user
     let userId = null;
     if (users) {
-        userId = users.objectId;
+        userId = users.id;
     }
-    
+
     let hasOwner = false;
     if (ownerId == userId) {
         hasOwner = true;
@@ -43,7 +45,7 @@ export async function detailView(ctx) {
 
     async function onDelete(ev) {
         ev.preventDefault()
-        const dataAwailt = await removeFruit(shoeId);
+        const dataAwailt = await dellShoe(shoeId);
         ctx.page.redirect('/catalog');
     }
 }

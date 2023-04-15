@@ -1,4 +1,5 @@
-import { html, nothing } from "../lib.js";
+import { html, nothing } from "../../node_modules/lit-html/lit-html.js";
+import { repeat } from "../../node_modules/lit-html/directives/repeat.js";
 import { searchEngine } from "../data/search.js";
 import { submitHandler } from "../until.js";
 
@@ -35,22 +36,20 @@ export function searchView(ctx) {
   async function onSubmit(data) {
     hasInput = true;
     let hasResult = false;
-    const resultSeach = {results: []} //await searchEngine(data.search);
+    const resultSeach = await searchEngine(data.search);
 
-    const resultFromSearch = resultSeach.results;
-
-    if (resultFromSearch.length !== 0) {
+    if (resultSeach.length !== 0) {
       hasResult = true;
     }
     const user = ctx.user;
     if (user) {
-      resultFromSearch.user = true;
+      resultSeach.user = true;
     } else {
-      resultFromSearch.user = false;
+      resultSeach.user = false;
     }
 
     ctx.renderSection(
-      searchTemplate(hasInput, submitHandler(onSubmit), hasResult, resultFromSearch)
+      searchTemplate(hasInput, submitHandler(onSubmit), hasResult, resultSeach)
     );
   }
 }

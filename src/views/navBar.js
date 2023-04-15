@@ -1,4 +1,4 @@
-import { html } from "../lib.js";
+import { html } from "../../node_modules/lit-html/lit-html.js";
 
 export const navTemplate = (hasUser) => html`
     <div>
@@ -13,6 +13,7 @@ export const navTemplate = (hasUser) => html`
         html`<div class="guest">
         <a href="/login">Login</a>
         <a href="/register">Register</a>
-</div>`}`;
+
+    </div>`}`;
 
 
