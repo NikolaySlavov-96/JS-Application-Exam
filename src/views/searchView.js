@@ -7,7 +7,7 @@ const cardResult = (content) => html` <div class="fruit">
   <img src="${content.imageUrl}" alt="example1" />
   <h3 class="title">${content.name}</h3>
   <p class="description">${content.description}</p>
-  <a class="details-btn" href="/catalog/${content._id}">More Info</a>
+  <a class="details-btn" href="/catalog/${content.objectId}">More Info</a>
 </div>`;
 
 const resultTemplate = (hasResult, data) => html` <div class="search-result">
